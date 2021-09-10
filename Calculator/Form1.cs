@@ -1,39 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
 
 namespace Calculator
 {
     public partial class Form1 : Form
     {
-        Double valueA = 0;
-        Double valueB = 0;
-        Double valueC = 0;
-        Double resultValue = 0;
-        bool addition = false;
-        bool subtraction = false;
-        bool multiplication = false;
-        bool division = false;
-        bool performOperation = true;
+        private Double valueA = 0;
+        private Double valueB = 0;
+        private Double valueC = 0;
+        private Double resultValue = 0;
+        private bool addition = false;
+        private bool subtraction = false;
+        private bool multiplication = false;
+        private bool division = false;
+        private bool performOperation = true;
 
-        AboutBox1 myAboutBox = new AboutBox1();
+        private AboutBox1 myAboutBox = new AboutBox1();
 
         public Form1()
         {
             InitializeComponent();
-        }
- 
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void button_Click(object sender, EventArgs e)               //Events för siffer-knappar
@@ -53,25 +39,19 @@ namespace Calculator
                 label_stored_value.Text = "";
             }
 
-            performOperation = true;            
-            Button button = (Button)sender;            
+            performOperation = true;
+            Button button = (Button)sender;
             textBox_Result.Text = textBox_Result.Text + button.Text;
-            
-            
-
-
         }
 
         private void operator_Click(object sender, EventArgs e)     //Events för operanderna
         {
             Button button = (Button)sender;
-                        
+
             if (textBox_Result.Text == "")      //För att en bugg inte ska uppstå genom att försöka pars:a ett nullvärde i textrutan.
             {
                 textBox_Result.Text = "0";
-                    
             }
-
 
             if (valueA == 0)
             {
@@ -86,7 +66,6 @@ namespace Calculator
             {
                 label_stored_value.Text = "" + valueA;
             }
-
 
             if (addition)       //Genomför addition av de tidigare två angivna talen.
             {
@@ -120,7 +99,6 @@ namespace Calculator
                 label_stored_value.Text = "" + valueA;
             }
 
-
             if (button.Text == "+")                                                          //Anger ett nytt boolvärde för nästa operation//
             {
                 addition = true;
@@ -130,7 +108,7 @@ namespace Calculator
                 label_stored_value.Text = label_stored_value.Text + "+";
                 textBox_Result.Clear();
             }
-            if (button.Text == "-") 
+            if (button.Text == "-")
             {
                 addition = false;
                 subtraction = true;
@@ -138,7 +116,7 @@ namespace Calculator
                 division = false;
                 label_stored_value.Text = label_stored_value.Text + "-";
                 textBox_Result.Clear();
-            } 
+            }
             if (button.Text == "*")
             {
                 addition = false;
@@ -158,6 +136,7 @@ namespace Calculator
                 textBox_Result.Clear();
             }                                                                           ///////////////////////////////////////////////////////////////
         }
+
         private void buttonEquals_Click(object sender, EventArgs e)     //Events för Är-Lika-Med-Knappen.
         {
             valueB = double.Parse(textBox_Result.Text);
@@ -182,36 +161,37 @@ namespace Calculator
             }
             else
                 if (multiplication)
-                {
+            {
                 resultValue = valueA * valueB; ;
                 label_Result.Text = label_Result.Text + " " + resultValue;
                 addition = false;
                 subtraction = false;
                 multiplication = false;
                 division = false;
-                }
+            }
             else
                 if (division)
-                {
+            {
                 resultValue = valueA / valueB;
                 label_Result.Text = label_Result.Text + " " + resultValue;
                 addition = false;
                 subtraction = false;
                 multiplication = false;
                 division = false;
-                }
+            }
 
             label_stored_value.Text = label_stored_value.Text + valueB;
             textBox_Result.Text = "";
             performOperation = false;
-
         }
+
         private void buttonClearEntry_Click(object sender, EventArgs e)     //Events för CE-knappen
         {
             textBox_Result.Text = "0";
             label_Result.Text = "= ";
             valueA = 0;
         }
+
         private void buttonClear_Click(object sender, EventArgs e)      //Events för C-knappen.
         {
             textBox_Result.Text = "0";
